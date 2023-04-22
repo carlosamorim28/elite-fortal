@@ -44,6 +44,7 @@ export default function Login(): React.ReactElement {
         <p>Digite sua senha</p>
         <input type='password' onChange={(event)=>{setState({...state, password: event.target.value})}} />
         <button style={{display: 'block'}} onClick={login}>Logar</button>
+        <button style={{display: 'block'}} onClick={()=>{ router.push('/register') }}>Cadastrar</button>
       </div>
 
     </div>
