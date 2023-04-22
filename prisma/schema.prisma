@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Users {
+  id       Int    @id @default(autoincrement())
+  email    String
+  password String
+  rule     String @default("player")
+
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  User_Tournaments User_Tournaments[]
+}
+
+model UserProfile {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  Slashs           Slashs[]
+  User_Tournaments User_Tournaments[]
+}
+
+model Tournaments {
+  id         Int    @id @default(autoincrement())
+  name       String
+  prize      String
+  local      String
+  occur_date String
+
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  Slashs           Slashs[]
+  User_Tournaments User_Tournaments[]
+}
+
+model User_Tournaments {
+  id              Int         @id @default(autoincrement())
+  user_profile_id Int
+  user_profile    UserProfile @relation(fields: [user_profile_id], references: [id])
+  tournament_id   Int
+  tournament      Tournaments @relation(fields: [tournament_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Users      Users?   @relation(fields: [usersId], references: [id])
+  usersId    Int?
+}
+
+model Slashs {
+  id                Int         @id @default(autoincrement())
+  user_profile_1_id Int
+  user_profile_2_id Int
+  tournament_id     Int
+  tournament        Tournaments @relation(fields: [tournament_id], references: [id])
+
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  Users      UserProfile? @relation(fields: [usersId], references: [id])
+  usersId    Int?
+}
