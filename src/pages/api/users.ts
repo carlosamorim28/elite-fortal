@@ -18,7 +18,7 @@ export default function handler(
   method[req.method as "GET" | "POST"](req, res);
 }
 
-async function get(req: NextApiRequest, res: NextApiResponse<any>) {
+function get(req: NextApiRequest, res: NextApiResponse<any>) {
   res.status(200).send({ batata: "Sim" });
 }
 
