@@ -11,5 +11,18 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  res.status(200).send("Deu bom");
+  fetch("https://www.dnd5eapi.co/api/ability-scores/cha", {
+    method: "GET",
+  })
+    .then((enconderElements) => {
+      enconderElements.json().then((elements) => {
+        res.status(200).send(elements);
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({ name: "Error: ", error });
+    })
+    .catch((error) => {
+      res.status(500).send({ name: "Error: ", error });
+    });
 }
