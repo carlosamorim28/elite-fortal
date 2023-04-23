@@ -19,8 +19,7 @@ export default function handler(
 }
 
 async function get(req: NextApiRequest, res: NextApiResponse<any>) {
-  const users = await prismaCliente.users.findMany({});
-  res.status(200).send(users);
+  res.status(200).send({ batata: "Sim" });
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse<any>) {
