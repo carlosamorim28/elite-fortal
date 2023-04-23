@@ -12,27 +12,33 @@ export default function Register(): React.ReactElement{
   const router = useRouter()
   
   async function cadastro(){
-    try{
-
-      const response = await fetch('/api/users',{
+    
+      fetch('/api/users',{
         headers: { 'Content-Type': 'application/json' },
         method: "POST",
         body: JSON.stringify({email: state.email, password: state.password})
-      })
+      }).then((user)=>[
 
-      const user = await response.json();
+        user.json().then((createdUser)=>{    
+
+          console.log("Usuário criado", createdUser)
+
+          alert("Não foi possível criar a conta, verifique se o email já está sendo usado")
+       
+          router.push('/login')
+       
+        }).catch((error)=>{
+          
+          console.log("Error", error)
+        
+        })
+
+      ]).catch((error)=>{
+          
+        console.log("Error", error)
       
-      alert("Usuário criado com sucesso")
-
-      router.push('/login')
+      })
     
-    } catch(error){
-    
-      alert("Não foi possível criar a conta, verifique se o email já está sendo usado")
-    
-      throw new Error("Erro",{error})
-
-    }
   }
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFF', width: '100vw', height:'100vh'}}>

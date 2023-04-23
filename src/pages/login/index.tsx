@@ -14,25 +14,31 @@ export default function Login(): React.ReactElement {
   const router = useRouter();
 
   async function login (): Promise<void>{
-    try{
 
-        const loggedUser = await fetch('/api/login',{
+      fetch('/api/login',{
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: state.email, password: state.password })
+      }).then((loggedUser)=>{
+        
+        loggedUser.json().then((user)=>{
+          
+          setUserContext(user)
+          
+          router.push('/home')
+        
+        }).catch((error)=>{
+          
+          console.log("Error", error)
+        
+        })
+      
+      }).catch((error)=>{
+          
+        console.log("Error", error)
+      
       })
 
-      const user = await loggedUser.json()
-      
-      setUserContext(user)
-
-      router.push('/home')
-
-    } catch(error: unknown){
-      throw new Error("Erro ",{ error })
-      console.log("Deu ruim em")
-
-    }
   }
   
   return (
