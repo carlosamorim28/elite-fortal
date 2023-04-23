@@ -29,7 +29,7 @@ export default function Login(): React.ReactElement {
       router.push('/home')
 
     } catch(error: unknown){
-      throw new Error({ error })
+      throw new Error("Erro ",{ error })
       console.log("Deu ruim em")
 
     }
