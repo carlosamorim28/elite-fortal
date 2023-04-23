@@ -30,6 +30,8 @@ export default function Register(): React.ReactElement{
     
       alert("Não foi possível criar a conta, verifique se o email já está sendo usado")
     
+      throw new Error({error})
+
     }
   }
   return (
