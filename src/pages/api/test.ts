@@ -7,10 +7,16 @@ type Data = {
   name: string;
 };
 
-export default async function handler(
+export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<any>
 ) {
-  const users = await prismaCliente.users.findMany();
-  res.status(200).send(users);
+  prismaCliente.users
+    .findMany()
+    .then((users) => {
+      res.status(200).send(users);
+    })
+    .catch((error) => {
+      res.status(400).send({ error: error });
+    });
 }
