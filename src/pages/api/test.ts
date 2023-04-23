@@ -11,14 +11,5 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  prismaCliente.users
-    .findMany()
-    .then((users) => {
-      res.setHeader("Content-Type", "application/json");
-      res.setHeader("Cache-Control", "max-age=180000");
-      res.status(200).send(users);
-    })
-    .catch((error) => {
-      res.status(400).send({ error: error });
-    });
+  res.status(200).send("Deu bom");
 }
