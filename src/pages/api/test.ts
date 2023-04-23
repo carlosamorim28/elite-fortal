@@ -14,6 +14,8 @@ export default function handler(
   prismaCliente.users
     .findMany()
     .then((users) => {
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Cache-Control", "max-age=180000");
       res.status(200).send(users);
     })
     .catch((error) => {
